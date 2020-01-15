@@ -37,8 +37,8 @@ class Note : CustomStringConvertible {
         self.positionOnScale = positionOnScale
     }
 
-    static func makeFor(_ key: String) -> Note? {
-        if let position = majorScale[key] {
+    static func makeFor(_ key: String?) -> Note? {
+        if let key = key, let position = majorScale[key] {
             return Note(name: key, positionOnScale: position)
         }
         return nil
@@ -49,29 +49,70 @@ class Note : CustomStringConvertible {
     }
 }
 
+enum ChordType {
+    case major
+    case minor
+    case majorSeventh
+    case minorSeventh
+    case dominantSeventh
+    case diminished
+    case sixth
+    case ninth
+    case unknown(text: String?)
+    // Add all of them...
+
+    static func forString(_ type: String?) -> ChordType {
+        switch type {
+        case "m": return .minor
+        case "maj": return .major
+        case nil: return .major
+        case "": return .major
+        case "6": return .sixth
+        case "m7": return .minorSeventh
+        case "maj7": return .majorSeventh
+        case "M7": return .majorSeventh
+        case "7": return .dominantSeventh
+        case "dim7": return .diminished
+        case "9": return .ninth
+        default: return .unknown(text: type)
+        }
+    }
+}
+
 class Chord : CustomStringConvertible {
     let keyNote: Note
+    let type: ChordType
 
-    init(_ keyNote: Note) {
+    init(key keyNote: Note, type: ChordType) {
         self.keyNote = keyNote
+        self.type = type
     }
 
     var description: String {
-        return "Chord [key: \(keyNote)]"
+        return "Chord [\(keyNote) \(type)]"
     }
 }
 
 class ChordParser {
-    static let REGEX_KEY = "[ABCDEFG](b|#)*"
+    static let FULL_CHORD_REGEX =
+        "(?<chord>[ABCDEFG](?:b|#)*)(?<type>(?:m)*(?:[769]|dim|sus2|sus4)*)(?<amendment>(?:b|#)*(?:[569]*))"
 
     static func parse(text chordString: String) -> Chord? {
-        let range = NSRange(location: 0, length: chordString.utf16.count) // or take 2
-        let regex = try! NSRegularExpression(pattern: REGEX_KEY)
+        func extractPart(from result: NSTextCheckingResult?, at name: String) -> String? {
+            if let range = result?.range(withName: name), range.location != NSNotFound {
+                return (chordString as NSString).substring(with: range)
+            }
+            return nil
+        }
 
-        // TODO: fix that shit
-        let results = regex.matches(in: chordString, range: range)
-        let key: String = results.map { String(chordString[Range($0.range, in: chordString)!]) } [0]
+        let regex = try! NSRegularExpression(pattern: FULL_CHORD_REGEX)
+        let range = NSRange(location: 0, length: chordString.count)
+        let result = regex.firstMatch(in: chordString, options: [], range: range)
 
-        return Chord(Note.makeFor(key)!)
+        let chordKey = extractPart(from: result, at: "chord")
+        let type = extractPart(from: result, at: "type")
+        //let amendment = extractPart(from: result, at: "amendment")
+
+        return Chord(key: Note.makeFor(chordKey)!, type: ChordType.forString(type))
     }
 }

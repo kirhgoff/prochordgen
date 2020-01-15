@@ -8,9 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		585FC27223CC3996006F043A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585FC27123CC3996006F043A /* main.swift */; };
-		585FC27F23CC3A73006F043A /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585FC27E23CC3A73006F043A /* Tests.swift */; };
+		585FC27F23CC3A73006F043A /* ChordParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585FC27E23CC3A73006F043A /* ChordParserTests.swift */; };
 		585FC28523CC443D006F043A /* ChordParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585FC28423CC443D006F043A /* ChordParser.swift */; };
+		585FC28A23CDC6D2006F043A /* prochordgen in Frameworks */ = {isa = PBXBuildFile; fileRef = 585FC26E23CC3996006F043A /* prochordgen */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		585FC28723CDC684006F043A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 585FC26623CC3996006F043A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 585FC26D23CC3996006F043A;
+			remoteInfo = prochordgen;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		585FC26C23CC3996006F043A /* CopyFiles */ = {
@@ -28,7 +39,7 @@
 		585FC26E23CC3996006F043A /* prochordgen */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = prochordgen; sourceTree = BUILT_PRODUCTS_DIR; };
 		585FC27123CC3996006F043A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		585FC27C23CC3A73006F043A /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		585FC27E23CC3A73006F043A /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		585FC27E23CC3A73006F043A /* ChordParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordParserTests.swift; sourceTree = "<group>"; };
 		585FC28023CC3A73006F043A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		585FC28423CC443D006F043A /* ChordParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -45,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				585FC28A23CDC6D2006F043A /* prochordgen in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,6 +69,7 @@
 				585FC27023CC3996006F043A /* prochordgen */,
 				585FC27D23CC3A73006F043A /* Tests */,
 				585FC26F23CC3996006F043A /* Products */,
+				585FC28923CDC6D2006F043A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,10 +94,17 @@
 		585FC27D23CC3A73006F043A /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				585FC27E23CC3A73006F043A /* Tests.swift */,
+				585FC27E23CC3A73006F043A /* ChordParserTests.swift */,
 				585FC28023CC3A73006F043A /* Info.plist */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		585FC28923CDC6D2006F043A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -118,6 +138,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				585FC28823CDC684006F043A /* PBXTargetDependency */,
 			);
 			name = Tests;
 			productName = Tests;
@@ -185,11 +206,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				585FC27F23CC3A73006F043A /* Tests.swift in Sources */,
+				585FC27F23CC3A73006F043A /* ChordParserTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		585FC28823CDC684006F043A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 585FC26D23CC3996006F043A /* prochordgen */;
+			targetProxy = 585FC28723CDC684006F043A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		585FC27323CC3996006F043A /* Debug */ = {
